@@ -1,0 +1,113 @@
+344. Reverse String
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        start = 0
+        end = len(s)-1
+        while(start < end):
+            s[start], s[end] = s[end], s[start] 
+            start+=1
+            end-=1
+        return None
+        
+
+
+125. Valid Palindrome
+
+import re
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        clean_str = re.sub(r'[^a-zA-Z0-9]',"",s)
+        a = list(clean_str.lower())
+        start = 0
+        end = len(a)-1
+        while( start<end):
+            if(a[start]!=a[end]):
+                return False
+            start+=1
+            end-=1
+        return True
+
+26. Remove Duplicates from Sorted Array
+
+# we have to iterate fast element till we are not getting unique as soon as
+we are getting unique elemnet we will increament slow pointer and assign fast value to slow value
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        slow = 0
+        fast = 1
+        while fast < len(nums):
+            if nums[slow] != nums[fast]:
+                slow+=1
+                nums[slow]=nums[fast]
+            fast+=1
+        return slow+1
+
+27. Remove Element
+
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        start = 0
+        end = len(nums) - 1
+        while start <= end:
+            if nums[start] == val:
+                nums[start] = nums[end]
+                end -= 1  # shrink the array from end when we get taregt == val
+            else:
+                start += 1
+        return start
+
+283. Move Zeroes
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        slow = 0 #track element 
+        fast = 0 # track non zero element
+        while fast < len(nums):
+            if nums[fast] != 0:
+                if slow != fast:
+                    nums[slow],nums[fast]=nums[fast],nums[slow]
+                slow+=1
+            fast+=1
+        return nums
+
+977. Squares of a Sorted Array
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        result = [0]*n
+        start = 0
+        end = n-1
+        pos = n-1
+        while (start <= end):
+            if abs(nums[start]) >= abs(nums[end]):
+                result[pos]= nums[start]**2
+                start+=1
+            else:
+                result[pos]= nums[end]**2
+                end-=1
+            pos-=1
+        return result
+
+
+        
+            
+        
+
+
+
+
+        
+
+
+
+        
+
+        
+        
+        
+
+
+        
