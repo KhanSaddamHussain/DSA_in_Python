@@ -1,4 +1,6 @@
-344. Reverse String
+<< Easy >>
+
+(1) 344. Reverse String
 
 class Solution:
     def reverseString(self, s: List[str]) -> None:
@@ -12,7 +14,7 @@ class Solution:
         
 
 
-125. Valid Palindrome
+(2) 125. Valid Palindrome
 
 import re
 class Solution:
@@ -28,7 +30,7 @@ class Solution:
             end-=1
         return True
 
-26. Remove Duplicates from Sorted Array
+(3) 26. Remove Duplicates from Sorted Array
 
 # we have to iterate fast element till we are not getting unique as soon as
 we are getting unique elemnet we will increament slow pointer and assign fast value to slow value
@@ -44,7 +46,7 @@ class Solution:
             fast+=1
         return slow+1
 
-27. Remove Element
+(4) 27. Remove Element
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
@@ -58,7 +60,7 @@ class Solution:
                 start += 1
         return start
 
-283. Move Zeroes
+(5) 283. Move Zeroes
 
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
@@ -72,7 +74,7 @@ class Solution:
             fast+=1
         return nums
 
-977. Squares of a Sorted Array
+(6) 977. Squares of a Sorted Array
 
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
@@ -90,6 +92,163 @@ class Solution:
                 end-=1
             pos-=1
         return result
+
+<< Medium >>
+
+(7) 167. Two Sum II - Input Array Is Sorted
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        start = 0
+        end = len(numbers)-1
+        while start<end:
+            sum = numbers[start]+ numbers[end]
+            if sum==target:
+                return [start+1,end+1]
+            elif sum<target:
+                start+=1
+            else:
+                end-=1
+        return [0,0]
+
+(8) 15. 3Sum
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+#STEP 1: sort the array nums.sort() sorts the list inplace, meaning it modifies the original list without returning new one
+
+#STEP 2: start iterating till last 2 as two pointer ka 2 point will iterate other 2  ( now fix 1 number and use two pointers to find the others two numbers that sum up to zero)
+
+#STEP 3: skip duplicates for the first number
+
+#STEP 4: initialize two pointers
+
+#STEP 5: use while loop to explore pairs
+
+#STEP 6: Check the sum and move pointers 
+
+#STEP 7: Store the duplicates and skip the duplicates for start and end
+
+#STEP 7: dont forget to initialize res=[] and return it '''
+
+        nums.sort()
+        n = len(nums)
+        res = []
+        for i in range(n-2):
+            if i > 0 and (nums[i]==nums[i-1]):
+                continue
+            start =  i+1
+            end = n-1
+            while start < end:
+                total = nums[i]+nums[start]+nums[end]
+                if total ==0:
+                    res.append([nums[i], nums[start], nums[end]])
+                    while start < end and nums[start]==nums[start+1]:
+                        start+=1
+                    while start < end and nums[end]==nums[end-1]:
+                        end-=1
+                    start+=1
+                    end-=1
+                elif total >0 :
+                    end-=1
+                else:
+                    start+=1    
+        return res
+
+(9) 16. 3Sum Closest
+
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+
+    #note before trying this do leetcode 15 3Sum here only thing is we have 
+    to keep track and closest and closet we can find by substracting from taret value
+
+        nums.sort()
+        n = len(nums)
+        result = []
+        closest_sum = float('inf')
+        for current_index in range(n-2):
+            
+            start =  current_index+1
+            end = n-1
+
+            while start < end:
+                current_sum = nums[current_index]+nums[start]+nums[end]
+                if abs(current_sum - target) < abs(closest_sum - target):
+                    closest_sum = current_sum
+                if current_sum > target:
+                    end-=1
+                elif current_sum < target:
+                    start+=1
+                else:
+                    return current_sum    
+        return closest_sum
+
+(10) 18. 4Sum
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+
+        # Step 1: Sort the array to help with duplicate skipping and two-pointer technique
+        nums.sort()
+        n = len(nums)
+        quadruplets = []
+
+        # Step 2: Iterate through each element as the first element
+        for first_index in range(n - 3):
+            # Skip duplicates for the first element
+            if first_index > 0 and nums[first_index] == nums[first_index - 1]:
+                continue
+
+            # Step 3: Iterate through the next element as the second element
+            for second_index in range(first_index + 1, n - 2):
+                # Skip duplicates for the second element
+                if second_index > first_index + 1 and nums[second_index] == nums[second_index - 1]:
+                    continue
+
+                # Step 4: Initialize the left and right pointers
+                start = second_index + 1
+                end = n - 1
+
+                # Step 5: Two-pointer technique to find valid quadruplets
+                while start < end:
+                    current_sum = nums[first_index] + nums[second_index] + nums[start] + nums[end]
+
+                    # If the sum matches the target, add the quadruplet
+                    if current_sum == target:
+                        quadruplets.append([nums[first_index], nums[second_index], nums[start], nums[end]])
+
+                        # Skip duplicates for the left pointer
+                        while start < end and nums[start] == nums[start + 1]:
+                            start += 1
+                        # Skip duplicates for the right pointer
+                        while start < end and nums[end] == nums[end - 1]:
+                            end -= 1
+
+                        # Move both pointers inward
+                        start += 1
+                        end -= 1
+
+                    # If the current sum is less than the target, move the left pointer right
+                    elif current_sum < target:
+                        start += 1
+                    # If the current sum is greater than the target, move the right pointer left
+                    else:
+                        end -= 1
+        return quadruplets
+                   
+                    
+                    
+
+        
+        
+                   
+                    
+                    
+
+        
+
+
 
 
         
